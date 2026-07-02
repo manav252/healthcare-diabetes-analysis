@@ -1,9 +1,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from pathlib import Path
 
 # 🔹 STEP 1: Load data
-df = pd.read_csv("/Users/manavdoshi/Downloads/diabetes.csv")
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+df = pd.read_csv(PROJECT_ROOT / "data" / "diabetes.csv")
 
 # 🔹 STEP 2: Data cleaning
 cols = ['Glucose', 'BloodPressure', 'BMI']
