@@ -4,64 +4,74 @@
 ![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458)
 ![NumPy](https://img.shields.io/badge/NumPy-Numerical%20Computing-013243)
 ![Scikit--Learn](https://img.shields.io/badge/Scikit--Learn-ML-F7931E)
+![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-Healthcare EDA project analyzing diabetes risk indicators using Python, Pandas, Matplotlib, and Seaborn.
+Data analyst case study exploring diabetes risk indicators with Python, Pandas, Seaborn, Streamlit, and baseline machine learning.
 
 ## Problem Statement
 
-Diabetes risk is influenced by clinical indicators such as glucose, BMI, insulin, age, and blood pressure. This project explores a diabetes dataset to identify patterns associated with diabetes outcomes and communicate health-related insights clearly.
+Healthcare teams need clear, interpretable analysis of patient risk indicators such as glucose, BMI, blood pressure, insulin, age, and diabetes outcome. This project cleans a diabetes dataset, explores important clinical patterns, and presents the findings in a Streamlit dashboard suitable for portfolio review.
 
-## Dataset / Source
+## Dataset
 
-The dataset is stored in `data/diabetes.csv` and contains medical attributes such as pregnancies, glucose, blood pressure, skin thickness, insulin, BMI, diabetes pedigree function, age, and outcome.
+The dataset is stored in `data/diabetes.csv` and contains 768 patient records with the following fields:
 
-## Tech Stack
+- Pregnancies
+- Glucose
+- BloodPressure
+- SkinThickness
+- Insulin
+- BMI
+- DiabetesPedigreeFunction
+- Age
+- Outcome
+
+## Tools
 
 - Python
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- Scikit-learn-ready structure
+- Pandas and NumPy
+- Matplotlib and Seaborn
+- Scikit-Learn
+- Streamlit
+- Pytest
 
 ## Workflow
 
-1. Load diabetes dataset.
-2. Replace invalid zero values in medical columns.
-3. Create risk bands for glucose and BMI.
-4. Perform exploratory data analysis.
-5. Visualize outcome distribution, BMI, age, and glucose.
+1. Load the raw diabetes dataset.
+2. Replace invalid zero values in medical columns with median values.
+3. Create interpretable risk bands for glucose and BMI.
+4. Perform exploratory data analysis on outcome, glucose, BMI, age, and correlations.
+5. Train baseline Logistic Regression and Random Forest models.
+6. Present insights through a Streamlit dashboard and written report.
 
-## Methodology
+## Key Insights
 
-- Invalid zero values are replaced with median values for relevant medical measurements.
-- EDA focuses on glucose, BMI, age, insulin, and diabetes outcome.
-- Visualizations support interpretation of risk patterns.
+- Glucose is the strongest practical risk signal in the dataset.
+- Higher BMI groups show higher diabetes outcome rates, especially when combined with high glucose.
+- Cleaning invalid zero values is necessary before interpreting insulin, BMI, blood pressure, and skin thickness.
+- Random Forest feature importance helps explain which variables contribute most to the baseline prediction model.
 
-## Key Features
+More details are available in [`reports/insights.md`](reports/insights.md).
 
-- Medical data cleaning
-- Risk band feature engineering
-- Outcome distribution
-- BMI and glucose analysis
-- Screenshot artifact in `screenshots/`
+## Business / Healthcare Impact
 
-## Results / Insights
+This dashboard helps a non-technical reviewer quickly identify high-risk patient groups, compare clinical indicators, and understand why data cleaning matters before healthcare analysis. It is designed as an educational analytics case study, not a diagnostic tool.
 
-- Higher glucose values are strongly associated with diabetic outcomes.
-- BMI and age help identify higher-risk groups.
-- Cleaning invalid zero values improves the reliability of EDA.
+## Dashboard Screenshot
 
-## Screenshots
+![Healthcare Streamlit dashboard](screenshots/streamlit-dashboard-overview.png)
 
-![Healthcare analysis output](screenshots/output2.png)
-
-## How to Run Locally
+## How to Run
 
 ```bash
 pip install -r requirements.txt
-python notebooks/health_care_project.py
+streamlit run app.py
+```
+
+Run tests:
+
+```bash
 pytest -q
 ```
 
@@ -69,10 +79,12 @@ pytest -q
 
 ```text
 .
+├── app.py
 ├── data/
 ├── docs/
 ├── notebooks/
 ├── reports/
+│   └── insights.md
 ├── screenshots/
 ├── src/
 ├── tests/
@@ -80,8 +92,9 @@ pytest -q
 └── requirements.txt
 ```
 
-## Future Improvements
+## Future Scope
 
-- Add Logistic Regression or Random Forest diabetes outcome classification.
-- Add ROC curve, confusion matrix, and feature importance.
-- Add a Streamlit dashboard for healthcare analytics.
+- Add cross-validation and hyperparameter tuning.
+- Add SHAP or permutation importance for stronger model interpretability.
+- Compare different imputation strategies for invalid medical values.
+- Deploy the Streamlit dashboard for public access.
