@@ -9,7 +9,7 @@
 
 End-to-end healthcare data science portfolio project for diabetes risk analytics, data validation, supervised machine learning, model interpretability, threshold optimization, subgroup performance review, and interactive patient-level risk scoring.
 
-[Deploy on Streamlit Cloud](https://share.streamlit.io/) | [GitHub Repository](https://github.com/manav252/healthcare-diabetes-analysis)
+[Live Streamlit App](https://healthcare-diabetes-analysis-manav252.streamlit.app) | [GitHub Repository](https://github.com/manav252/healthcare-diabetes-analysis)
 
 > This project is for education and portfolio demonstration only. It is not a medical device and must not be used for diagnosis.
 
@@ -197,21 +197,17 @@ Dashboard sections:
 
 See `reports/insights.md` for the full interpretation.
 
-## Public Demo Deployment
+## Live Dashboard
 
-The project is ready for Streamlit Community Cloud. Open Streamlit Cloud and create a new app:
+The public Streamlit dashboard is available here:
 
-[https://share.streamlit.io/](https://share.streamlit.io/)
+[https://healthcare-diabetes-analysis-manav252.streamlit.app](https://healthcare-diabetes-analysis-manav252.streamlit.app)
 
-Use these exact settings:
+Deployment settings:
 
 - Repository: `manav252/healthcare-diabetes-analysis`
 - Branch: `main`
 - Main file path: `app.py`
-
-If Streamlit says the branch or file does not exist, refresh/reconnect GitHub access in Streamlit Cloud, then select the repository from the GitHub repository picker before entering the branch and file path. The GitHub repo has a `main` branch and `app.py` is located at the repository root.
-
-After Streamlit creates the app, copy the generated public `*.streamlit.app` URL and replace the deploy button above with the live demo link.
 
 ## Installation
 
