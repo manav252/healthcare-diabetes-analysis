@@ -1,100 +1,189 @@
-# Healthcare Diabetes Analysis
+# Healthcare Diabetes ML Analytics
 
 ![Python](https://img.shields.io/badge/Python-3.11+-blue)
-![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458)
-![NumPy](https://img.shields.io/badge/NumPy-Numerical%20Computing-013243)
-![Scikit--Learn](https://img.shields.io/badge/Scikit--Learn-ML-F7931E)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Validation-150458)
+![Scikit--Learn](https://img.shields.io/badge/Scikit--Learn-ML%20Pipelines-F7931E)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B)
+![Pytest](https://img.shields.io/badge/Pytest-Tested-0A9EDC)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-Data analyst case study exploring diabetes risk indicators with Python, Pandas, Seaborn, Streamlit, and baseline machine learning.
+Graduate-level healthcare analytics portfolio project for diabetes risk analysis, data validation, supervised machine learning, interpretability, and interactive patient-level risk scoring.
+
+> This project is for education and portfolio demonstration only. It is not a medical device and must not be used for diagnosis.
+
+## Project Overview
+
+Healthcare teams need reliable, interpretable ways to understand diabetes risk indicators such as glucose, BMI, blood pressure, insulin, age, pregnancies, and family-history proxy variables. This project turns a classic structured diabetes dataset into an end-to-end data science solution with:
+
+- data quality validation
+- reusable preprocessing pipelines
+- multi-model classification benchmarking
+- hyperparameter tuning
+- model evaluation artifacts
+- global and local interpretability helpers
+- Streamlit dashboard for recruiters and stakeholders
 
 ## Problem Statement
 
-Healthcare teams need clear, interpretable analysis of patient risk indicators such as glucose, BMI, blood pressure, insulin, age, and diabetes outcome. This project cleans a diabetes dataset, explores important clinical patterns, and presents the findings in a Streamlit dashboard suitable for portfolio review.
+Predict whether a patient record is associated with a diabetes outcome while clearly explaining the data quality assumptions, clinical risk factors, model performance, limitations, and practical healthcare interpretation.
 
 ## Dataset
 
-The dataset is stored in `data/diabetes.csv` and contains 768 patient records with the following fields:
+The dataset is stored in `data/diabetes.csv` and contains 768 patient records.
 
-- Pregnancies
-- Glucose
-- BloodPressure
-- SkinThickness
-- Insulin
-- BMI
-- DiabetesPedigreeFunction
-- Age
-- Outcome
+| Column | Description |
+| --- | --- |
+| Pregnancies | Number of pregnancies |
+| Glucose | Plasma glucose concentration |
+| BloodPressure | Diastolic blood pressure |
+| SkinThickness | Triceps skin fold thickness |
+| Insulin | 2-hour serum insulin |
+| BMI | Body mass index |
+| DiabetesPedigreeFunction | Family-history risk proxy |
+| Age | Patient age |
+| Outcome | Binary diabetes outcome |
 
-## Tools
+Raw data quality findings:
 
-- Python
-- Pandas and NumPy
-- Matplotlib and Seaborn
-- Scikit-Learn
-- Streamlit
-- Pytest
+- Missing values: 0
+- Duplicate rows: 0
+- Invalid clinical zeros exist in glucose, blood pressure, skin thickness, insulin, and BMI
+- Class balance: 500 non-diabetes outcomes and 268 diabetes outcomes
 
-## Workflow
-
-1. Load the raw diabetes dataset.
-2. Replace invalid zero values in medical columns with median values.
-3. Create interpretable risk bands for glucose and BMI.
-4. Perform exploratory data analysis on outcome, glucose, BMI, age, and correlations.
-5. Train baseline Logistic Regression and Random Forest models.
-6. Present insights through a Streamlit dashboard and written report.
-
-## Key Insights
-
-- Glucose is the strongest practical risk signal in the dataset.
-- Higher BMI groups show higher diabetes outcome rates, especially when combined with high glucose.
-- Cleaning invalid zero values is necessary before interpreting insulin, BMI, blood pressure, and skin thickness.
-- Random Forest feature importance helps explain which variables contribute most to the baseline prediction model.
-
-More details are available in [`reports/insights.md`](reports/insights.md).
-
-## Business / Healthcare Impact
-
-This dashboard helps a non-technical reviewer quickly identify high-risk patient groups, compare clinical indicators, and understand why data cleaning matters before healthcare analysis. It is designed as an educational analytics case study, not a diagnostic tool.
-
-## Dashboard Screenshot
-
-![Healthcare Streamlit dashboard](screenshots/streamlit-dashboard-overview.png)
-
-## How to Run
-
-```bash
-pip install -r requirements.txt
-streamlit run app.py
-```
-
-Run tests:
-
-```bash
-pytest -q
-```
-
-## Folder Structure
+## Architecture
 
 ```text
 .
-├── app.py
+├── app.py                         # Backward-compatible Streamlit entry point
+├── dashboard/
+│   └── app.py                     # Dashboard pages and interactive UI
 ├── data/
-├── docs/
+│   └── diabetes.csv               # Raw dataset
+├── docs/                          # Architecture, methodology, findings
+├── models/                        # Saved model artifacts
 ├── notebooks/
+│   └── health_care_project.py     # Original EDA script
 ├── reports/
-│   └── insights.md
-├── screenshots/
+│   ├── insights.md                # Healthcare and business interpretation
+│   ├── data_quality_report.md     # Generated validation report
+│   ├── model_comparison.csv       # Generated model metrics
+│   └── figures/                   # Generated evaluation plots
+├── scripts/
+│   └── train_model.py             # End-to-end training pipeline
 ├── src/
-├── tests/
-├── README.md
-└── requirements.txt
+│   ├── data_processing.py
+│   ├── evaluation.py
+│   ├── feature_engineering.py
+│   ├── interpretability.py
+│   ├── modeling.py
+│   ├── prediction.py
+│   ├── preprocessing.py
+│   ├── utils.py
+│   ├── validation.py
+│   └── visualization.py
+└── tests/
 ```
 
-## Future Scope
+## Machine Learning Workflow
 
-- Add cross-validation and hyperparameter tuning.
-- Add SHAP or permutation importance for stronger model interpretability.
-- Compare different imputation strategies for invalid medical values.
-- Deploy the Streamlit dashboard for public access.
+1. Load raw data.
+2. Validate schema, missing values, duplicates, invalid zeros, data types, and outliers.
+3. Convert clinically invalid zeros to missing values.
+4. Split features and target with stratified train/test sampling.
+5. Impute missing values inside sklearn pipelines to avoid leakage.
+6. Scale numeric features for Logistic Regression.
+7. Train and compare:
+   - Logistic Regression
+   - Decision Tree
+   - Random Forest
+   - Gradient Boosting
+   - XGBoost when installed
+   - Tuned Random Forest
+8. Select the best model by ROC-AUC.
+9. Save the best model and evaluation plots.
+
+## Evaluation
+
+The training pipeline generates:
+
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- ROC-AUC
+- Confusion matrix
+- ROC curve
+- Precision-recall curve
+- Model comparison table
+- Global feature importance
+
+Run the full pipeline:
+
+```bash
+python scripts/train_model.py
+```
+
+Generated outputs are written to `reports/` and `models/`.
+
+## Dashboard
+
+Run:
+
+```bash
+streamlit run app.py
+```
+
+Dashboard sections:
+
+- Dataset Overview
+- EDA
+- Risk Insights
+- Patient Prediction
+- Feature Importance
+- Model Performance
+- About Project
+
+![Healthcare Streamlit dashboard](screenshots/streamlit-dashboard-overview.png)
+
+## Business Insights
+
+- Glucose is the strongest practical risk signal in the dataset.
+- BMI, age, pregnancies, and diabetes pedigree function provide useful supporting context.
+- Invalid zero values in clinical measurements materially affect downstream analysis and must be handled before modeling.
+- Model outputs are best interpreted as triage-style risk signals for education, not clinical decisions.
+
+See `reports/insights.md` for the full interpretation.
+
+## Installation
+
+```bash
+git clone https://github.com/manav252/healthcare-diabetes-analysis.git
+cd healthcare-diabetes-analysis
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Testing
+
+```bash
+pytest -q
+python -m py_compile src/*.py dashboard/*.py scripts/*.py app.py notebooks/*.py
+```
+
+## Documentation
+
+- `PROJECT_AUDIT.md`: repository audit and prioritized improvement plan
+- `docs/architecture.md`: system structure
+- `docs/methodology.md`: validation, preprocessing, modeling, and interpretability approach
+- `reports/insights.md`: healthcare-oriented findings
+- `reports/data_quality_report.md`: generated validation output
+
+## Future Work
+
+- Add calibration curves and threshold optimization for recall-sensitive screening.
+- Add fairness and subgroup performance analysis.
+- Add external validation on a newer clinical dataset.
+- Deploy the Streamlit dashboard with a public demo URL.
+- Add richer SHAP plots in CI or a dedicated notebook environment.
+

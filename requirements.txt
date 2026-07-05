@@ -5,3 +5,7 @@ seaborn
 scikit-learn
 streamlit
 pytest
+joblib
+plotly
+xgboost
+shap

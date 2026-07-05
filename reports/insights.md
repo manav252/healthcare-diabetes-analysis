@@ -25,7 +25,14 @@ This project analyzes diabetes risk indicators from a structured healthcare data
 
 ## Model Baseline
 
-The Streamlit dashboard trains Logistic Regression and Random Forest classifiers to predict the diabetes outcome using cleaned numeric features. Metrics include accuracy, precision, recall, F1-score, ROC-AUC, confusion matrix, and Random Forest feature importance.
+The project now compares Logistic Regression, Decision Tree, Random Forest, Gradient Boosting, optional XGBoost, and a tuned Random Forest pipeline. Metrics include accuracy, precision, recall, F1-score, ROC-AUC, confusion matrix, ROC curve, precision-recall curve, and global feature importance.
+
+## Practical Recommendations
+
+- Prioritize glucose screening and follow-up review for patients in the highest glucose band.
+- Interpret BMI, age, pregnancies, and diabetes pedigree function as supporting risk context rather than standalone diagnostic signals.
+- Treat invalid zeros in insulin, skin thickness, BMI, blood pressure, and glucose as data quality issues before analysis.
+- Use model probabilities as a triage aid for education and portfolio demonstration only; clinical deployment would require external validation, calibration, bias review, and medical governance.
 
 ## Limitations
 
