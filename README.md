@@ -7,11 +7,17 @@
 ![Pytest](https://img.shields.io/badge/Pytest-Tested-0A9EDC)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-Graduate-level healthcare analytics portfolio project for diabetes risk analysis, data validation, supervised machine learning, interpretability, and interactive patient-level risk scoring.
+End-to-end healthcare data science portfolio project for diabetes risk analytics, data validation, supervised machine learning, model interpretability, threshold optimization, subgroup performance review, and interactive patient-level risk scoring.
 
 [Deploy on Streamlit Cloud](https://share.streamlit.io/deploy?repository=https://github.com/manav252/healthcare-diabetes-analysis&branch=main&mainModule=app.py) | [GitHub Repository](https://github.com/manav252/healthcare-diabetes-analysis)
 
 > This project is for education and portfolio demonstration only. It is not a medical device and must not be used for diagnosis.
+
+## GitHub Repository Description
+
+Suggested GitHub About description:
+
+> End-to-end diabetes risk analytics with data validation, sklearn ML pipelines, Streamlit dashboard, interpretability, calibration, threshold optimization, and subgroup performance analysis.
 
 ## Project Overview
 
@@ -26,6 +32,15 @@ Healthcare teams need reliable, interpretable ways to understand diabetes risk i
 - model evaluation artifacts
 - global, local, and optional SHAP interpretability helpers
 - Streamlit dashboard for recruiters and stakeholders
+
+## Portfolio Highlights
+
+- Production-style project structure with separate `src/`, `dashboard/`, `scripts/`, `reports/`, `models/`, `tests/`, and `docs/` layers.
+- Automated data quality report covering missing values, duplicates, invalid clinical zeros, schema checks, and outlier counts.
+- Reproducible sklearn pipelines for imputation, scaling, model training, and patient prediction.
+- Multi-model benchmark across Logistic Regression, Decision Tree, Random Forest, Gradient Boosting, optional XGBoost, and tuned Random Forest.
+- Healthcare-oriented evaluation with ROC-AUC, precision-recall, calibration, threshold optimization, and subgroup performance.
+- Recruiter-friendly Streamlit dashboard with EDA, model performance, feature importance, thresholds, subgroup analysis, and patient prediction.
 
 ## Problem Statement
 
@@ -136,6 +151,20 @@ python scripts/train_model.py
 ```
 
 Generated outputs are written to `reports/` and `models/`.
+
+## Results Snapshot
+
+The latest generated comparison selected Logistic Regression as the best model by ROC-AUC.
+
+| Model | Accuracy | Precision | Recall | F1-score | ROC-AUC |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Logistic Regression | 0.724 | 0.630 | 0.507 | 0.562 | 0.824 |
+| Gradient Boosting | 0.745 | 0.661 | 0.552 | 0.602 | 0.820 |
+| Tuned Random Forest | 0.745 | 0.667 | 0.537 | 0.595 | 0.811 |
+| Random Forest | 0.734 | 0.648 | 0.522 | 0.579 | 0.810 |
+| Decision Tree | 0.750 | 0.646 | 0.627 | 0.636 | 0.743 |
+
+For recall-sensitive screening, lowering the decision threshold to `0.20` increased recall to `0.896`, with the expected precision tradeoff. See `reports/threshold_analysis.csv` and `reports/subgroup_performance.csv`.
 
 ## Dashboard
 
