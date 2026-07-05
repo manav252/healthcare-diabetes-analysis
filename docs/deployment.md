@@ -11,9 +11,17 @@ Use these settings:
 - Main file path: `app.py`
 - Python dependencies: `requirements.txt`
 
-Deploy shortcut:
+Open Streamlit Cloud:
 
-https://share.streamlit.io/deploy?repository=https://github.com/manav252/healthcare-diabetes-analysis&branch=main&mainModule=app.py
+https://share.streamlit.io/
+
+Then create a new app with:
+
+- Repository: `manav252/healthcare-diabetes-analysis`
+- Branch: `main`
+- Main file path: `app.py`
+
+If Streamlit says the branch or file does not exist, reconnect GitHub in Streamlit Cloud and select the repository from the repository picker before entering the branch and file path. The GitHub remote contains `refs/heads/main`, and `app.py` is at the repository root.
 
 After Streamlit creates the app, copy the generated public `*.streamlit.app` URL into `README.md`.
 
