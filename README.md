@@ -15,7 +15,7 @@ End-to-end healthcare data science portfolio project for diabetes risk analytics
 
 ## GitHub Repository Description
 
-Suggested GitHub About description:
+
 
 > End-to-end diabetes risk analytics with data validation, sklearn ML pipelines, Streamlit dashboard, interpretability, calibration, threshold optimization, and subgroup performance analysis.
 
