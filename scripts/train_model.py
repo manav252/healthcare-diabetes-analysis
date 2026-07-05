@@ -13,8 +13,8 @@ sys.path.insert(0, str(PROJECT_ROOT))
 os.environ.setdefault("MPLCONFIGDIR", str(PROJECT_ROOT / ".matplotlib-cache"))
 
 from src.data_processing import DATA_PATH, load_diabetes_data
-from src.evaluation import save_evaluation_plots
-from src.interpretability import save_feature_importance_plot
+from src.evaluation import save_evaluation_plots, subgroup_performance, threshold_analysis
+from src.interpretability import save_feature_importance_plot, save_optional_shap_summary_plot
 from src.modeling import compare_models
 from src.preprocessing import replace_invalid_zeros
 from src.validation import write_data_quality_report
@@ -36,7 +36,20 @@ def main() -> None:
     joblib.dump(result.best_estimator, models_dir / "best_diabetes_model.joblib")
 
     save_evaluation_plots(result.best_estimator, result.x_test, result.y_test, figures_dir)
+    threshold_analysis(result.best_estimator, result.x_test, result.y_test).to_csv(
+        reports_dir / "threshold_analysis.csv",
+        index=False,
+    )
+    subgroup_performance(result.best_estimator, result.x_test, result.y_test).to_csv(
+        reports_dir / "subgroup_performance.csv",
+        index=False,
+    )
     save_feature_importance_plot(result.best_estimator, figures_dir / "feature_importance.png")
+    save_optional_shap_summary_plot(
+        result.best_estimator,
+        result.x_test.head(100),
+        figures_dir / "shap_summary.png",
+    )
 
     print(f"Best model: {result.best_model_name}")
     print(result.metrics.to_string(index=False))

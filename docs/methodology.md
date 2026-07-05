@@ -21,8 +21,14 @@ Core columns:
 5. Compare Logistic Regression, Decision Tree, Random Forest, Gradient Boosting, and XGBoost when installed.
 6. Tune a Random Forest with cross-validated ROC-AUC.
 7. Select the best model by test ROC-AUC.
-8. Save model comparison metrics, plots, feature importance, and the best model artifact.
+8. Generate calibration and threshold tables for recall-sensitive screening decisions.
+9. Compare performance across age and BMI subgroups.
+10. Save model comparison metrics, plots, feature importance, and the best model artifact.
 
 ## Interpretability
 
-Global feature importance is generated for tree-based models and absolute coefficients are used for linear models. Optional SHAP support is documented and surfaced in the dashboard when the dependency is available.
+Global feature importance is generated for tree-based models and absolute coefficients are used for linear models. Optional SHAP support is documented, surfaced in the dashboard, and exported by the training pipeline when the dependency supports the fitted estimator.
+
+## External Validation
+
+`src/external_validation.py` provides a schema-checked path for evaluating the trained model against a newer external diabetes dataset. A public external dataset is not bundled because clinical provenance and licensing should be reviewed before inclusion.

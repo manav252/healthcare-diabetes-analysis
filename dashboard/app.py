@@ -10,7 +10,7 @@ import seaborn as sns
 import streamlit as st
 
 from src.data_processing import clean_diabetes_data, load_diabetes_data
-from src.evaluation import confusion_matrix_frame
+from src.evaluation import confusion_matrix_frame, subgroup_performance, threshold_analysis
 from src.feature_engineering import add_risk_features
 from src.interpretability import (
     feature_importance_frame,
@@ -130,6 +130,50 @@ def render_model_performance(result) -> None:
         draw_bar(importance, "feature", "importance", "Global Feature Importance")
 
 
+def render_threshold_optimization(result) -> None:
+    """Render recall-sensitive threshold analysis."""
+    st.subheader("Threshold Optimization")
+    threshold_table = threshold_analysis(result.best_estimator, result.x_test, result.y_test)
+    numeric_columns = threshold_table.select_dtypes("number").columns
+    st.dataframe(
+        threshold_table.style.format({column: "{:.3f}" for column in numeric_columns}),
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    fig, ax = plt.subplots(figsize=(8, 4))
+    ax.plot(threshold_table["threshold"], threshold_table["recall"], marker="o", label="Recall")
+    ax.plot(threshold_table["threshold"], threshold_table["precision"], marker="o", label="Precision")
+    ax.plot(threshold_table["threshold"], threshold_table["f1_score"], marker="o", label="F1-score")
+    ax.set_title("Precision/Recall Tradeoff by Decision Threshold")
+    ax.set_xlabel("Decision Threshold")
+    ax.set_ylabel("Score")
+    ax.legend(loc="best")
+    fig.tight_layout()
+    st.pyplot(fig, use_container_width=True)
+
+
+def render_subgroup_performance(result) -> None:
+    """Render subgroup performance analysis."""
+    st.subheader("Fairness and Subgroup Performance")
+    subgroup_table = subgroup_performance(result.best_estimator, result.x_test, result.y_test)
+    numeric_columns = subgroup_table.select_dtypes("number").columns
+    st.dataframe(
+        subgroup_table.style.format({column: "{:.3f}" for column in numeric_columns}),
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    fig, ax = plt.subplots(figsize=(8, 4))
+    sns.barplot(data=subgroup_table, x="subgroup", y="recall", hue="subgroup_type", ax=ax)
+    ax.set_title("Recall by Clinical Subgroup")
+    ax.set_xlabel("")
+    ax.set_ylabel("Recall")
+    ax.tick_params(axis="x", rotation=20)
+    fig.tight_layout()
+    st.pyplot(fig, use_container_width=True)
+
+
 def render_prediction(result) -> None:
     """Render individual patient prediction controls."""
     st.subheader("Patient Prediction")
@@ -172,6 +216,8 @@ def main() -> None:
             "Risk Insights",
             "Patient Prediction",
             "Feature Importance",
+            "Thresholds",
+            "Subgroups",
             "Model Performance",
             "About Project",
         ]
@@ -200,11 +246,16 @@ def main() -> None:
             else "SHAP is available in this environment for deeper local explanations."
         )
     with tabs[5]:
-        render_model_performance(result)
+        render_threshold_optimization(result)
     with tabs[6]:
+        render_subgroup_performance(result)
+    with tabs[7]:
+        render_model_performance(result)
+    with tabs[8]:
         st.write(
             "This project is an educational healthcare analytics portfolio project. "
             "It supports data quality review, model benchmarking, interpretability, and patient-level risk scoring. "
+            "It includes deployment-ready Streamlit settings, external-validation hooks, and optional SHAP artifacts. "
             "It is not intended for clinical diagnosis."
         )
 

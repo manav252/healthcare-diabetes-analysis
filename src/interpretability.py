@@ -50,6 +50,29 @@ def shap_summary_available() -> bool:
     return True
 
 
+def save_optional_shap_summary_plot(model: Any, x_sample: pd.DataFrame, output_path: Path) -> Path | None:
+    """Save a SHAP summary plot when SHAP supports the fitted estimator."""
+    try:
+        import shap
+    except ImportError:
+        return None
+
+    try:
+        classifier = model.named_steps["classifier"]
+        preprocessor = model.named_steps["preprocessor"]
+        transformed_sample = preprocessor.transform(x_sample)
+        explainer = shap.Explainer(classifier, transformed_sample)
+        shap_values = explainer(transformed_sample)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        shap.summary_plot(shap_values, transformed_sample, feature_names=NUMERIC_FEATURES, show=False)
+        plt.tight_layout()
+        plt.savefig(output_path, dpi=160, bbox_inches="tight")
+        plt.close()
+        return output_path
+    except Exception:
+        return None
+
+
 def individual_prediction_explanation(model: Any, patient: pd.DataFrame) -> pd.DataFrame:
     """Provide a lightweight local explanation from global importances and patient values."""
     importance = feature_importance_frame(model)
@@ -60,4 +83,3 @@ def individual_prediction_explanation(model: Any, patient: pd.DataFrame) -> pd.D
     explanation["patient_value"] = explanation["feature"].map(values)
     explanation = explanation.rename(columns={"importance": "global_importance"})
     return explanation[["feature", "patient_value", "global_importance"]]
-

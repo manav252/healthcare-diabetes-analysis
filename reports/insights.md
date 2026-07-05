@@ -34,15 +34,21 @@ The project now compares Logistic Regression, Decision Tree, Random Forest, Grad
 - Treat invalid zeros in insulin, skin thickness, BMI, blood pressure, and glucose as data quality issues before analysis.
 - Use model probabilities as a triage aid for education and portfolio demonstration only; clinical deployment would require external validation, calibration, bias review, and medical governance.
 
+## Screening and Governance Notes
+
+- Threshold analysis helps show how recall improves when the decision cutoff is lowered below 0.50.
+- Subgroup performance across age and BMI bands helps reviewers see where the model may need additional validation.
+- External validation support is included, but a newer clinical dataset should only be added when licensing and provenance are appropriate for a public portfolio repository.
+
 ## Limitations
 
 - This is a small educational dataset, not a production clinical system.
 - The model should not be used for diagnosis.
 - Additional features such as lifestyle, family history details, lab trends, and medical history would improve real-world usefulness.
 
-## Future Improvements
+## Remaining Improvements
 
-- Add cross-validation and hyperparameter tuning.
-- Add SHAP explanations for model interpretability.
-- Compare imputation strategies for invalid medical zero values.
-- Deploy the Streamlit dashboard for easier portfolio review.
+- Add a public, newer external validation dataset when licensing and provenance are appropriate.
+- Add calibration drift monitoring after deployment.
+- Compare additional imputation strategies for invalid medical zero values.
+- Add CI-rendered dashboard screenshots once the public app is hosted.

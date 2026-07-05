@@ -9,6 +9,8 @@
 
 Graduate-level healthcare analytics portfolio project for diabetes risk analysis, data validation, supervised machine learning, interpretability, and interactive patient-level risk scoring.
 
+[Live Streamlit Demo](https://healthcare-diabetes-analysis.streamlit.app/) | [GitHub Repository](https://github.com/manav252/healthcare-diabetes-analysis)
+
 > This project is for education and portfolio demonstration only. It is not a medical device and must not be used for diagnosis.
 
 ## Project Overview
@@ -19,8 +21,10 @@ Healthcare teams need reliable, interpretable ways to understand diabetes risk i
 - reusable preprocessing pipelines
 - multi-model classification benchmarking
 - hyperparameter tuning
+- calibration and threshold optimization for recall-sensitive screening
+- subgroup performance analysis across clinically meaningful groups
 - model evaluation artifacts
-- global and local interpretability helpers
+- global, local, and optional SHAP interpretability helpers
 - Streamlit dashboard for recruiters and stakeholders
 
 ## Problem Statement
@@ -67,12 +71,15 @@ Raw data quality findings:
 │   ├── insights.md                # Healthcare and business interpretation
 │   ├── data_quality_report.md     # Generated validation report
 │   ├── model_comparison.csv       # Generated model metrics
+│   ├── threshold_analysis.csv     # Recall-sensitive threshold analysis
+│   ├── subgroup_performance.csv   # Fairness and subgroup performance
 │   └── figures/                   # Generated evaluation plots
 ├── scripts/
 │   └── train_model.py             # End-to-end training pipeline
 ├── src/
 │   ├── data_processing.py
 │   ├── evaluation.py
+│   ├── external_validation.py
 │   ├── feature_engineering.py
 │   ├── interpretability.py
 │   ├── modeling.py
@@ -100,7 +107,8 @@ Raw data quality findings:
    - XGBoost when installed
    - Tuned Random Forest
 8. Select the best model by ROC-AUC.
-9. Save the best model and evaluation plots.
+9. Generate calibration, threshold, subgroup, and optional SHAP reports.
+10. Save the best model and evaluation plots.
 
 ## Evaluation
 
@@ -114,8 +122,12 @@ The training pipeline generates:
 - Confusion matrix
 - ROC curve
 - Precision-recall curve
+- Calibration curve
+- Threshold optimization table
+- Subgroup performance table
 - Model comparison table
 - Global feature importance
+- Optional SHAP summary plot when SHAP supports the fitted estimator
 
 Run the full pipeline:
 
@@ -140,6 +152,8 @@ Dashboard sections:
 - Risk Insights
 - Patient Prediction
 - Feature Importance
+- Thresholds
+- Subgroups
 - Model Performance
 - About Project
 
@@ -153,6 +167,20 @@ Dashboard sections:
 - Model outputs are best interpreted as triage-style risk signals for education, not clinical decisions.
 
 See `reports/insights.md` for the full interpretation.
+
+## Public Demo Deployment
+
+The README is prepared to showcase the dashboard at:
+
+[https://healthcare-diabetes-analysis.streamlit.app/](https://healthcare-diabetes-analysis.streamlit.app/)
+
+To activate that public link, deploy this GitHub repository on Streamlit Community Cloud with:
+
+- Repository: `manav252/healthcare-diabetes-analysis`
+- Branch: `main`
+- Main file path: `app.py`
+
+If Streamlit assigns a different app slug, update the demo link above after deployment.
 
 ## Installation
 
@@ -178,12 +206,12 @@ python -m py_compile src/*.py dashboard/*.py scripts/*.py app.py notebooks/*.py
 - `docs/methodology.md`: validation, preprocessing, modeling, and interpretability approach
 - `reports/insights.md`: healthcare-oriented findings
 - `reports/data_quality_report.md`: generated validation output
+- `reports/threshold_analysis.csv`: recall-sensitive screening thresholds
+- `reports/subgroup_performance.csv`: age and BMI subgroup performance
+- `docs/deployment.md`: public Streamlit deployment steps
 
 ## Future Work
 
-- Add calibration curves and threshold optimization for recall-sensitive screening.
-- Add fairness and subgroup performance analysis.
-- Add external validation on a newer clinical dataset.
-- Deploy the Streamlit dashboard with a public demo URL.
-- Add richer SHAP plots in CI or a dedicated notebook environment.
-
+- Add a real newer external clinical dataset once one is approved for public use.
+- Add model monitoring and drift checks after public deployment.
+- Add CI-rendered dashboard screenshots after the app is hosted.

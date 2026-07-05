@@ -83,7 +83,7 @@ The repository already contains a compact data science project scaffold:
 - No hyperparameter tuning.
 - No standalone evaluation module for ROC curves, precision-recall curves, and comparison tables.
 - No reusable prediction API.
-- No SHAP or robust interpretability workflow.
+- SHAP support was missing before this update; optional SHAP artifact generation is now available when the dependency supports the fitted estimator.
 - No dashboard folder despite a dashboard being part of the project goal.
 - Tests do not cover prediction or training pipeline behavior.
 - README needs a more production-grade architecture and results narrative.
@@ -98,7 +98,7 @@ The repository already contains a compact data science project scaffold:
 | High | Compare Logistic Regression, Decision Tree, Random Forest, Gradient Boosting, and optional XGBoost | Recruiters expect structured model benchmarking. |
 | High | Add model evaluation artifacts and best-model selection | A portfolio project should clearly explain how the chosen model was selected. |
 | High | Add prediction helpers and tests | The dashboard prediction workflow should use the same pipeline as training. |
-| Medium | Add feature importance and optional SHAP explanations | Interpretability is especially important for healthcare analytics. |
+| Medium | Add feature importance and optional SHAP explanations | Implemented; interpretability is especially important for healthcare analytics. |
 | Medium | Create `dashboard/` package while preserving root `app.py` | Matches requested production structure without breaking existing run commands. |
 | Medium | Rewrite README with architecture, setup, results, and business insights | Improves reviewer confidence and admissions presentation quality. |
 | Medium | Add `models/` directory and artifact outputs | Demonstrates end-to-end ML lifecycle thinking. |
@@ -116,5 +116,7 @@ The repository already contains a compact data science project scaffold:
 - Added a persisted best model artifact at `models/best_diabetes_model.joblib`.
 - Added a professional dashboard package at `dashboard/app.py` while preserving `app.py` as the existing Streamlit entry point.
 - Added patient prediction and local explanation helpers.
+- Added calibration curve, threshold optimization, and subgroup performance outputs.
+- Added Streamlit Cloud deployment configuration and public demo documentation.
 - Added unit tests for validation, model comparison, and patient prediction.
 - Rewrote README and expanded methodology/architecture documentation.
