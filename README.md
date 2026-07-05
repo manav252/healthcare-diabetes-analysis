@@ -9,7 +9,7 @@
 
 Graduate-level healthcare analytics portfolio project for diabetes risk analysis, data validation, supervised machine learning, interpretability, and interactive patient-level risk scoring.
 
-[Live Streamlit Demo](https://healthcare-diabetes-analysis.streamlit.app/) | [GitHub Repository](https://github.com/manav252/healthcare-diabetes-analysis)
+[Deploy on Streamlit Cloud](https://share.streamlit.io/deploy?repository=https://github.com/manav252/healthcare-diabetes-analysis&branch=main&mainModule=app.py) | [GitHub Repository](https://github.com/manav252/healthcare-diabetes-analysis)
 
 > This project is for education and portfolio demonstration only. It is not a medical device and must not be used for diagnosis.
 
@@ -170,17 +170,17 @@ See `reports/insights.md` for the full interpretation.
 
 ## Public Demo Deployment
 
-The README is prepared to showcase the dashboard at:
+The project is ready for Streamlit Community Cloud. Deploy it here:
 
-[https://healthcare-diabetes-analysis.streamlit.app/](https://healthcare-diabetes-analysis.streamlit.app/)
+[Deploy on Streamlit Cloud](https://share.streamlit.io/deploy?repository=https://github.com/manav252/healthcare-diabetes-analysis&branch=main&mainModule=app.py)
 
-To activate that public link, deploy this GitHub repository on Streamlit Community Cloud with:
+Use these settings if Streamlit asks for them:
 
 - Repository: `manav252/healthcare-diabetes-analysis`
 - Branch: `main`
 - Main file path: `app.py`
 
-If Streamlit assigns a different app slug, update the demo link above after deployment.
+After Streamlit creates the app, copy the generated public `*.streamlit.app` URL and replace the deploy button above with the live demo link.
 
 ## Installation
 

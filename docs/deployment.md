@@ -11,11 +11,11 @@ Use these settings:
 - Main file path: `app.py`
 - Python dependencies: `requirements.txt`
 
-Recommended public demo URL:
+Deploy shortcut:
 
-https://healthcare-diabetes-analysis.streamlit.app/
+https://share.streamlit.io/deploy?repository=https://github.com/manav252/healthcare-diabetes-analysis&branch=main&mainModule=app.py
 
-If Streamlit assigns a different slug, update the live demo link in `README.md`.
+After Streamlit creates the app, copy the generated public `*.streamlit.app` URL into `README.md`.
 
 ## Local Smoke Test
 
